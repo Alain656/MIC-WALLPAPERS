@@ -140,8 +140,9 @@
         }
 
         .modal-content {
-            width: 400px; /* Fixed width */
-            height: 300px; /* Fixed height */
+            width: 90%; /* Adjusted for mobile screens */
+            max-width: 400px; /* Fixed width for larger screens */
+            height: auto; /* Auto height for mobile */
             position: relative;
             overflow: hidden; /* Clip overflow */
             display: flex;
@@ -214,6 +215,38 @@
             nav ul {
                 flex-direction: column;
                 gap: 10px;
+            }
+
+            .search-section input[type="text"] {
+                width: 80%; /* Increase width for smaller screens */
+            }
+
+            .image-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust grid layout for mobile */
+            }
+
+            .modal-content {
+                width: 90%; /* Reduce width for mobile devices */
+                height: auto; /* Allow dynamic height */
+            }
+        }
+
+        @media (max-width: 480px) {
+            header .logo h1 {
+                font-size: 20px; /* Adjust logo font size on small screens */
+            }
+
+            .search-section input[type="text"] {
+                width: 90%; /* Full width for very small screens */
+            }
+
+            .image-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Further adjustment for small screens */
+            }
+
+            .download-btn {
+                padding: 8px 16px; /* Smaller buttons on mobile */
+                font-size: 14px;
             }
         }
     </style>
@@ -334,4 +367,3 @@
     </script>
 </body>
 </html>
-
