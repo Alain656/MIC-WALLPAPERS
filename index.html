@@ -122,6 +122,8 @@
             width: 100%; /* Scale to fill the box */
             height: auto; /* Maintain aspect ratio */
             object-fit: cover; /* Cover the box */
+            border-radius: 10px;
+            transition: all 0.3s ease;
         }
 
         /* Modal Styles */
@@ -257,7 +259,7 @@
     <!-- Header Section -->
     <header>
         <div class="logo">
-            <img src=image/miclogo.webp alt="MIC Wallpapers Logo"> <!-- Replace with your logo URL -->
+            <img src="image/miclogo.webp" alt="MIC Wallpapers Logo"> <!-- Replace with your logo URL -->
             <h1>MIC Wallpapers</h1>
         </div>
         <nav>
@@ -300,9 +302,22 @@
     <!-- JavaScript -->
     <script>
         const toggleButton = document.getElementById('darkModeToggle');
+        const darkMode = localStorage.getItem('darkMode'); // Check for saved mode
+
+        if (darkMode === 'light-mode') {
+            document.body.classList.add('light-mode');
+            document.body.classList.remove('dark-mode');
+        }
+
         toggleButton.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
             document.body.classList.toggle('dark-mode');
+
+            if (document.body.classList.contains('light-mode')) {
+                localStorage.setItem('darkMode', 'light-mode');
+            } else {
+                localStorage.setItem('darkMode', 'dark-mode');
+            }
         });
 
         // Sample images array
@@ -331,6 +346,7 @@
                 const img = document.createElement('img');
                 img.src = url; // Set image source
                 img.alt = 'Wallpaper'; // Alt text
+                img.loading = "lazy"; // Lazy loading for performance
                 img.onclick = () => openModal(url); // Open modal on click
 
                 imageBox.appendChild(img); // Add image to the box
