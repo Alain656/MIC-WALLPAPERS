@@ -112,6 +112,7 @@
             border-radius: 10px;
             overflow: hidden; /* Clip overflow */
             transition: transform 0.2s;
+            position: relative; /* Set position to relative for absolute img positioning */
         }
 
         .image-box:hover {
@@ -120,11 +121,13 @@
 
         .image-box img {
             width: 100%; /* Scale to fill the box */
-            height: auto; /* Maintain aspect ratio */
-            object-fit: cover; /* Cover the box */
-            border-radius: 10px;
+            height: 100%; /* Set height to fill the box */
+            object-fit: cover; /* Cover the box while maintaining aspect ratio */
             transition: all 0.3s ease;
             loading: lazy; /* Enable lazy loading */
+            position: absolute; /* Allow positioning of the image within the box */
+            top: 0; /* Align to top */
+            left: 0; /* Align to left */
         }
 
         /* Modal Styles */
@@ -305,15 +308,13 @@
         const toggleButton = document.getElementById('darkModeToggle');
         const darkMode = localStorage.getItem('darkMode'); // Check for saved mode
 
-        if (darkMode === 'light-mode') {
-            document.body.classList.add('light-mode');
-            document.body.classList.remove('dark-mode');
+        if (darkMode) {
+            document.body.classList.add(darkMode); // Set initial mode
         }
 
         toggleButton.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
             document.body.classList.toggle('dark-mode');
-
+            document.body.classList.toggle('light-mode');
             if (document.body.classList.contains('light-mode')) {
                 localStorage.setItem('darkMode', 'light-mode');
             } else {
@@ -348,6 +349,7 @@
                 img.src = url; // Set image source
                 img.alt = 'Wallpaper'; // Alt text
                 img.loading = "lazy"; // Lazy loading for performance
+
                 img.onclick = () => openModal(url); // Open modal on click
 
                 imageBox.appendChild(img); // Add image to the box
