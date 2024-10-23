@@ -121,33 +121,43 @@
     </header>
 
     <!-- Main Page Grid Section -->
-    <section class="grid-section">
+    <section class="grid-section" id="mainPage">
         <a href="#cars-page">
             <div class="grid-box">
                 <h2>Cars</h2>
                 <p>Explore cars wallpapers.</p>
             </div>
         </a>
-        <div class="grid-box">
-            <h2>Box 2</h2>
-            <p>Details about Box 2</p>
-        </div>
-        <div class="grid-box">
-            <h2>Box 3</h2>
-            <p>Details about Box 3</p>
-        </div>
-        <div class="grid-box">
-            <h2>Box 4</h2>
-            <p>Details about Box 4</p>
-        </div>
-        <div class="grid-box">
-            <h2>Box 5</h2>
-            <p>Details about Box 5</p>
-        </div>
-        <div class="grid-box">
-            <h2>Box 6</h2>
-            <p>Details about Box 6</p>
-        </div>
+        <a href="#nature-page">
+            <div class="grid-box">
+                <h2>Nature</h2>
+                <p>Explore nature wallpapers.</p>
+            </div>
+        </a>
+        <a href="#technology-page">
+            <div class="grid-box">
+                <h2>Technology</h2>
+                <p>Explore technology wallpapers.</p>
+            </div>
+        </a>
+        <a href="#animals-page">
+            <div class="grid-box">
+                <h2>Animals</h2>
+                <p>Explore animals wallpapers.</p>
+            </div>
+        </a>
+        <a href="#sports-page">
+            <div class="grid-box">
+                <h2>Sports</h2>
+                <p>Explore sports wallpapers.</p>
+            </div>
+        </a>
+        <a href="#abstract-page">
+            <div class="grid-box">
+                <h2>Abstract</h2>
+                <p>Explore abstract wallpapers.</p>
+            </div>
+        </a>
     </section>
 
     <!-- Cars Page Section -->
@@ -156,10 +166,8 @@
             <h1>Cars - MIC Wallpapers</h1>
         </header>
 
-        <!-- Back Button -->
         <a href="#" class="back-button">← Back</a>
 
-        <!-- Grid Section with 10 Image Boxes -->
         <section class="grid-section">
             <div class="grid-box">
                 <img src="image/car1.jpg" alt="Car 1">
@@ -194,6 +202,71 @@
         </section>
     </section>
 
+    <!-- Nature Page Section -->
+    <section id="nature-page" style="display: none;">
+        <header>
+            <h1>Nature - MIC Wallpapers</h1>
+        </header>
+
+        <a href="#" class="back-button">← Back</a>
+
+        <section class="grid-section">
+            <!-- Add 10 nature image boxes -->
+        </section>
+    </section>
+
+    <!-- Technology Page Section -->
+    <section id="technology-page" style="display: none;">
+        <header>
+            <h1>Technology - MIC Wallpapers</h1>
+        </header>
+
+        <a href="#" class="back-button">← Back</a>
+
+        <section class="grid-section">
+            <!-- Add 10 technology image boxes -->
+        </section>
+    </section>
+
+    <!-- Animals Page Section -->
+    <section id="animals-page" style="display: none;">
+        <header>
+            <h1>Animals - MIC Wallpapers</h1>
+        </header>
+
+        <a href="#" class="back-button">← Back</a>
+
+        <section class="grid-section">
+            <!-- Add 10 animal image boxes -->
+        </section>
+    </section>
+
+    <!-- Sports Page Section -->
+    <section id="sports-page" style="display: none;">
+        <header>
+            <h1>Sports - MIC Wallpapers</h1>
+        </header>
+
+        <a href="#" class="back-button">← Back</a>
+
+        <section class="grid-section">
+            <!-- Add 10 sports image boxes -->
+        </section>
+    </section>
+
+    <!-- Abstract Page Section -->
+    <section id="abstract-page" style="display: none;">
+        <header>
+            <h1>Abstract - MIC Wallpapers</h1>
+        </header>
+
+        <a href="#" class="back-button">← Back</a>
+
+        <section class="grid-section">
+            <!-- Add 10 abstract image boxes -->
+        </section>
+    </section>
+
     <!-- Footer Section -->
     <footer>
         <p>Made by D.A.B</p>
@@ -201,24 +274,58 @@
 
     <!-- JavaScript -->
     <script>
-        // Get the elements
-        const carsPage = document.getElementById('cars-page');
-        const mainPage = document.querySelector('section.grid-section');
-        const backButton = document.querySelector('.back-button');
-        const carsLink = document.querySelector('a[href="#cars-page"]');
+        // Function to handle page navigation
+        function navigateTo(pageId) {
+            const pages = document.querySelectorAll('section[id$="-page"]');
+            pages.forEach(page => page.style.display = 'none'); // Hide all sections
+            document.getElementById(pageId).style.display = 'block'; // Show the selected section
+            document.getElementById('mainPage').style.display = 'none'; // Hide the main page
+        }
 
-        // Show Cars page and hide Main page when Cars link is clicked
-        carsLink.addEventListener('click', function(event) {
+        // Function to go back to the main page
+        function goBack() {
+            const pages = document.querySelectorAll('section[id$="-page"]');
+            pages.forEach(page => page.style.display = 'none'); // Hide all sections
+            document.getElementById('mainPage').style.display = 'grid'; // Show the main page
+        }
+
+        // Add event listeners for navigation
+        document.querySelector('a[href="#cars-page"]').addEventListener('click', function(event) {
             event.preventDefault();
-            carsPage.style.display = 'block';
-            mainPage.style.display = 'none';
+            navigateTo('cars-page');
         });
 
-        // Show Main page and hide Cars page when Back button is clicked
-        backButton.addEventListener('click', function(event) {
+        document.querySelector('a[href="#nature-page"]').addEventListener('click', function(event) {
             event.preventDefault();
-            carsPage.style.display = 'none';
-            mainPage.style.display = 'grid';
+            navigateTo('nature-page');
+        });
+
+        document.querySelector('a[href="#technology-page"]').addEventListener('click', function(event) {
+            event.preventDefault();
+            navigateTo('technology-page');
+        });
+
+        document.querySelector('a[href="#animals-page"]').addEventListener('click', function(event) {
+            event.preventDefault();
+            navigateTo('animals-page');
+        });
+
+        document.querySelector('a[href="#sports-page"]').addEventListener('click', function(event) {
+            event.preventDefault();
+            navigateTo('sports-page');
+        });
+
+        document.querySelector('a[href="#abstract-page"]').addEventListener('click', function(event) {
+            event.preventDefault();
+            navigateTo('abstract-page');
+        });
+
+        // Add event listeners for back buttons
+        document.querySelectorAll('.back-button').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                goBack();
+            });
         });
     </script>
 </body>
