@@ -16,29 +16,14 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        .dark-mode {
-            background-color: #000;
-            color: #fff;
-        }
-
-        .light-mode {
-            background-color: #fff;
-            color: #000;
-        }
-
-        /* Header */
         header {
             display: flex;
             justify-content: space-between;
             padding: 20px;
             background-color: #333;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
         }
 
         header .logo {
@@ -68,20 +53,8 @@
             color: #fff;
             text-decoration: none;
             font-weight: bold;
-            transition: color 0.3s ease;
         }
 
-        nav ul li a:hover {
-            color: #ff9900;
-        }
-
-        .extras {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Grid Section */
         .grid-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -97,25 +70,28 @@
             padding: 20px;
             text-align: center;
             transition: transform 0.3s ease;
-            color: #ff9900;
-            cursor: pointer;
         }
 
         .grid-box:hover {
-            transform: scale(1.05); /* Scale effect on hover */
+            transform: scale(1.05);
         }
 
-        .grid-box h2 {
-            margin: 0;
-            font-size: 18px;
-            color: #ff9900;
-        }
-
-        .grid-box p {
+        /* Back Button */
+        .back-button {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #ff9900;
             color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
 
-        /* Footer */
+        .back-button:hover {
+            background-color: #ff7700;
+        }
+
         footer {
             background-color: transparent;
             padding: 20px;
@@ -125,45 +101,16 @@
         }
 
         footer a {
-            color: #ff9900; /* Updated link color */
+            color: #ff9900;
             text-decoration: none;
-            margin: 0 10px;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        .footer-content p {
-            margin: 0;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            nav ul {
-                flex-direction: column;
-                gap: 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header .logo h1 {
-                font-size: 20px; /* Adjust logo font size on small screens */
-            }
         }
     </style>
 </head>
-<body class="dark-mode">
+<body>
     <!-- Header Section -->
     <header>
         <div class="logo">
-            <img src="image/miclogo.webp" alt="MIC Wallpapers Logo"> <!-- Replace with your logo URL -->
+            <img src="image/miclogo.webp" alt="MIC Wallpapers Logo">
             <h1>MIC Wallpapers</h1>
         </div>
         <nav>
@@ -171,76 +118,107 @@
                 <li><a href="#">Contact Us</a></li>
             </ul>
         </nav>
-        <div class="extras">
-            <button id="darkModeToggle">Toggle Dark Mode</button>
-        </div>
     </header>
 
-    <!-- Grid Section with 6 Boxes -->
+    <!-- Main Page Grid Section -->
     <section class="grid-section">
-        <a href="page1.html">
+        <a href="#cars-page">
             <div class="grid-box">
-                <h2>Box 1</h2>
-                <p>Content for box 1.</p>
+                <h2>Cars</h2>
+                <p>Explore cars wallpapers.</p>
             </div>
         </a>
-        <a href="page2.html">
+        <div class="grid-box">
+            <h2>Box 2</h2>
+            <p>Details about Box 2</p>
+        </div>
+        <div class="grid-box">
+            <h2>Box 3</h2>
+            <p>Details about Box 3</p>
+        </div>
+        <div class="grid-box">
+            <h2>Box 4</h2>
+            <p>Details about Box 4</p>
+        </div>
+        <div class="grid-box">
+            <h2>Box 5</h2>
+            <p>Details about Box 5</p>
+        </div>
+        <div class="grid-box">
+            <h2>Box 6</h2>
+            <p>Details about Box 6</p>
+        </div>
+    </section>
+
+    <!-- Cars Page Section -->
+    <section id="cars-page" style="display: none;">
+        <header>
+            <h1>Cars - MIC Wallpapers</h1>
+        </header>
+
+        <!-- Back Button -->
+        <a href="#" class="back-button">← Back</a>
+
+        <!-- Grid Section with 10 Image Boxes -->
+        <section class="grid-section">
             <div class="grid-box">
-                <h2>Box 2</h2>
-                <p>Content for box 2.</p>
+                <img src="image/car1.jpg" alt="Car 1">
             </div>
-        </a>
-        <a href="page3.html">
             <div class="grid-box">
-                <h2>Box 3</h2>
-                <p>Content for box 3.</p>
+                <img src="image/car2.jpg" alt="Car 2">
             </div>
-        </a>
-        <a href="page4.html">
             <div class="grid-box">
-                <h2>Box 4</h2>
-                <p>Content for box 4.</p>
+                <img src="image/car3.jpg" alt="Car 3">
             </div>
-        </a>
-        <a href="page5.html">
             <div class="grid-box">
-                <h2>Box 5</h2>
-                <p>Content for box 5.</p>
+                <img src="image/car4.jpg" alt="Car 4">
             </div>
-        </a>
-        <a href="page6.html">
             <div class="grid-box">
-                <h2>Box 6</h2>
-                <p>Content for box 6.</p>
+                <img src="image/car5.jpg" alt="Car 5">
             </div>
-        </a>
+            <div class="grid-box">
+                <img src="image/car6.jpg" alt="Car 6">
+            </div>
+            <div class="grid-box">
+                <img src="image/car7.jpg" alt="Car 7">
+            </div>
+            <div class="grid-box">
+                <img src="image/car8.jpg" alt="Car 8">
+            </div>
+            <div class="grid-box">
+                <img src="image/car9.jpg" alt="Car 9">
+            </div>
+            <div class="grid-box">
+                <img src="image/car10.jpg" alt="Car 10">
+            </div>
+        </section>
     </section>
 
     <!-- Footer Section -->
     <footer>
-        <div class="footer-content">
-            <p>Made by D.A.B</p>
-            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-        </div>
+        <p>Made by D.A.B</p>
     </footer>
 
     <!-- JavaScript -->
     <script>
-        const toggleButton = document.getElementById('darkModeToggle');
-        const darkMode = localStorage.getItem('darkMode'); // Check for saved mode
+        // Get the elements
+        const carsPage = document.getElementById('cars-page');
+        const mainPage = document.querySelector('section.grid-section');
+        const backButton = document.querySelector('.back-button');
+        const carsLink = document.querySelector('a[href="#cars-page"]');
 
-        if (darkMode) {
-            document.body.classList.add(darkMode); // Set initial mode
-        }
+        // Show Cars page and hide Main page when Cars link is clicked
+        carsLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            carsPage.style.display = 'block';
+            mainPage.style.display = 'none';
+        });
 
-        toggleButton.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            document.body.classList.toggle('light-mode');
-            if (document.body.classList.contains('light-mode')) {
-                localStorage.setItem('darkMode', 'light-mode');
-            } else {
-                localStorage.setItem('darkMode', 'dark-mode');
-            }
+        // Show Main page and hide Cars page when Back button is clicked
+        backButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            carsPage.style.display = 'none';
+            mainPage.style.display = 'grid';
         });
     </script>
 </body>
