@@ -313,76 +313,50 @@
         }
 
         toggleButton.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
             document.body.classList.toggle('light-mode');
-            if (document.body.classList.contains('light-mode')) {
-                localStorage.setItem('darkMode', 'light-mode');
-            } else {
-                localStorage.setItem('darkMode', 'dark-mode');
-            }
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode');
         });
 
-        // Sample images array
-        const images = [
-            'image/download (25).jpeg',
-            'image/download (10).jpeg',
-            'image/download (9).jpeg',
-            'image/download (12).jpeg',
-            'image/download (13).jpeg',
-            'image/download (14).jpeg',
-            'image/download (15).jpeg',
-            'image/download (22).jpeg',
-            'image/download (23).jpeg',
-            'image/download (29).jpeg',
-            'image/download (20).jpeg',
-            'image/download (31).jpeg',
+        // Sample Image URLs (Replace these with your images or dynamic loading)
+        const imageUrls = [
+            "image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg", "image5.jpg", "image6.jpg"
         ];
 
-        // Function to load images into the grid
-        function loadImages() {
-            const imageGrid = document.getElementById('imageGrid');
-            images.forEach(url => {
-                const imageBox = document.createElement('div');
-                imageBox.classList.add('image-box'); // Add class for styling
+        const imageGrid = document.getElementById('imageGrid');
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const downloadLink = document.getElementById('downloadLink');
+        const closeModalButton = document.querySelector('.close');
 
-                const img = document.createElement('img');
-                img.src = url; // Set image source
-                img.alt = 'Wallpaper'; // Alt text
-                img.loading = "lazy"; // Lazy loading for performance
+        // Populate Image Grid
+        imageUrls.forEach(url => {
+            const imageBox = document.createElement('div');
+            imageBox.classList.add('image-box');
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = "Wallpaper Image";
+            imageBox.appendChild(img);
+            imageGrid.appendChild(imageBox);
 
-                img.onclick = () => openModal(url); // Open modal on click
-
-                imageBox.appendChild(img); // Add image to the box
-                imageGrid.appendChild(imageBox); // Add box to the grid
+            // Click Event to Open Modal
+            imageBox.addEventListener('click', () => {
+                modalImage.src = url;
+                downloadLink.href = url;
+                imageModal.style.display = 'flex';
             });
-        }
-
-        // Function to open the modal with the enlarged image
-        function openModal(imageUrl) {
-            const modal = document.getElementById('imageModal');
-            const modalImage = document.getElementById('modalImage');
-            const downloadLink = document.getElementById('downloadLink');
-
-            modalImage.src = imageUrl; // Set the src of the modal image
-            downloadLink.href = imageUrl; // Set the download link
-            modal.style.display = 'flex'; // Show the modal
-        }
-
-        // Close modal when clicking on close button
-        document.querySelector('.close').addEventListener('click', () => {
-            document.getElementById('imageModal').style.display = 'none';
         });
 
-        // Close modal when clicking outside the modal content
-        window.addEventListener('click', (event) => {
-            const modal = document.getElementById('imageModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
+        // Close Modal
+        closeModalButton.addEventListener('click', () => {
+            imageModal.style.display = 'none';
+        });
+
+        window.onclick = (event) => {
+            if (event.target == imageModal) {
+                imageModal.style.display = 'none';
             }
-        });
-
-        // Load images when the page loads
-        window.onload = loadImages;
+        };
     </script>
 </body>
 </html>
