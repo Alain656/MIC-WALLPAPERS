@@ -1,362 +1,195 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Discover and download stunning wallpapers from MIC Wallpapers.">
-    <meta name="keywords" content="wallpapers, HD wallpapers, download wallpapers, MIC Wallpapers">
-    <meta name="author" content="D.A.B">
     <title>MIC Wallpapers</title>
     <style>
-        /* General Styles */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
+            background-color: #f4f4f4;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            height: 100vh;
         }
 
-        .dark-mode {
-            background-color: #000;
-            color: #fff;
-        }
-
-        .light-mode {
-            background-color: #fff;
-            color: #000;
-        }
-
-        /* Header */
+        /* Header Styles */
         header {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 20px;
-            background-color: #333;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
+            background-color: #1a1a1a;
+            color: white;
         }
 
-        header .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        header .logo img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
-
-        header .logo h1 {
+        header h1 {
             margin: 0;
             font-size: 24px;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
             font-weight: bold;
-            transition: color 0.3s ease;
         }
 
-        nav ul li a:hover {
-            color: #ff9900;
-        }
-
-        .extras {
+        .search-bar {
             display: flex;
             align-items: center;
-            gap: 10px;
         }
 
-        /* Search Bar Centering */
-        .search-section {
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        input[type="text"] {
+        .search-bar input {
             padding: 10px;
-            width: 50%; /* Adjust width as necessary */
-            border-radius: 5px;
-            border: none;
             font-size: 16px;
+            border-radius: 20px;
+            border: none;
+            width: 250px;
+            outline: none;
         }
 
-        /* Image Grid */
-        .image-grid {
+        .search-bar button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        /* Grid Styles */
+        .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-            overflow: hidden; /* Prevent overflow */
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            gap: 25px;
+            padding: 25px;
         }
 
-        .image-box {
-            border: 2px solid #444; /* Border around the image box */
-            border-radius: 10px;
-            overflow: hidden; /* Clip overflow */
-            transition: transform 0.2s;
-            position: relative; /* Set position to relative for absolute img positioning */
+        .wallpaper-item {
+            position: relative;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
         }
 
-        .image-box:hover {
-            transform: scale(1.05); /* Scale up on hover */
-        }
-
-        .image-box img {
-            width: 100%; /* Scale to fill the box */
-            height: 100%; /* Set height to fill the box */
-            object-fit: cover; /* Cover the box while maintaining aspect ratio */
-            transition: all 0.3s ease;
-            loading: lazy; /* Enable lazy loading */
-            position: absolute; /* Allow positioning of the image within the box */
-            top: 0; /* Align to top */
-            left: 0; /* Align to left */
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed;
-            z-index: 1000; /* Sit on top */
-            left: 0;
-            top: 0;
+        .wallpaper-item img {
             width: 100%;
             height: 100%;
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0, 0, 0, 0.8); /* Black with transparency */
-            justify-content: center; /* Center the modal content */
-            align-items: center; /* Center the modal content */
+            object-fit: cover;
+            transition: opacity 0.3s ease;
         }
 
-        .modal-content {
-            width: 90%; /* Adjusted for mobile screens */
-            max-width: 400px; /* Fixed width for larger screens */
-            height: auto; /* Auto height for mobile */
-            position: relative;
-            overflow: hidden; /* Clip overflow */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+        .wallpaper-item:hover {
+            transform: scale(1.05);
         }
 
-        .modal-content img {
-            max-width: 100%; /* Allow image to scale within the box */
-            max-height: 100%; /* Allow image to scale within the box */
-            object-fit: contain; /* Maintain aspect ratio */
-            border-radius: 10px;
+        .wallpaper-item:hover img {
+            opacity: 0.7;
         }
 
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            color: white;
-            font-size: 30px;
-            cursor: pointer;
-        }
-
-        .download-btn {
-            margin-top: 15px;
-            padding: 10px 20px;
-            background-color: #ff9900; /* Button color */
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            cursor: pointer;
+        .wallpaper-item p {
+            padding: 15px;
             font-size: 16px;
-            text-decoration: none;
-        }
-
-        .download-btn:hover {
-            background-color: #e68a00; /* Darker shade on hover */
-        }
-
-        /* Footer */
-        footer {
-            background-color: transparent;
-            padding: 20px;
+            font-weight: bold;
+            background-color: rgba(0, 0, 0, 0.6);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            color: white;
             text-align: center;
-            color: #fff;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
             margin-top: auto;
+            font-size: 16px;
         }
 
-        footer a {
-            color: #ff9900; /* Updated link color */
-            text-decoration: none;
-            margin: 0 10px;
+        /* Hide wallpapers initially */
+        .wallpaper-item {
+            display: none;
         }
 
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        .footer-content p {
-            margin: 0;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            nav ul {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .search-section input[type="text"] {
-                width: 80%; /* Increase width for smaller screens */
-            }
-
-            .image-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust grid layout for mobile */
-            }
-
-            .modal-content {
-                width: 90%; /* Reduce width for mobile devices */
-                height: auto; /* Allow dynamic height */
-            }
-        }
-
-        @media (max-width: 480px) {
-            header .logo h1 {
-                font-size: 20px; /* Adjust logo font size on small screens */
-            }
-
-            .search-section input[type="text"] {
-                width: 90%; /* Full width for very small screens */
-            }
-
-            .image-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Further adjustment for small screens */
-            }
-
-            .download-btn {
-                padding: 8px 16px; /* Smaller buttons on mobile */
-                font-size: 14px;
-            }
+        .visible {
+            display: block;
         }
     </style>
 </head>
-<body class="dark-mode">
-    <!-- Header Section -->
-    <header>
-        <div class="logo">
-            <img src="image/miclogo.webp" alt="MIC Wallpapers Logo"> <!-- Replace with your logo URL -->
-            <h1>MIC Wallpapers</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
-        </nav>
-        <div class="extras">
-            <button id="darkModeToggle">Toggle Dark Mode</button>
-        </div>
-    </header>
+<body>
 
-    <!-- Search Section -->
-    <section class="search-section">
-        <input type="text" placeholder="Search wallpapers...">
-    </section>
-
-    <!-- Image Grid Section -->
-    <section class="image-grid" id="imageGrid">
-        <!-- Images will be dynamically inserted here -->
-    </section>
-
-    <!-- Modal for Enlarged Image -->
-    <div id="imageModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <img id="modalImage" src="" alt="Enlarged Image">
-            <a id="downloadLink" class="download-btn" href="" download>Download</a>
-        </div>
+<header>
+    <h1>MIC WALLPAPERS</h1>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search wallpapers..." onkeyup="filterImages()">
+        <button>Search</button>
     </div>
+</header>
 
-    <!-- Footer Section -->
-    <footer>
-        <div class="footer-content">
-            <p>Made by D.A.B</p>
-            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-        </div>
-    </footer>
+<div class="grid-container">
+    <!-- Image Box 1 -->
+    <div class="wallpaper-item" data-title="nature" onclick="window.location.href='car.html'">
+        <img src="https://i.pinimg.com/736x/e9/af/7e/e9af7ebe625f3673602628f2ceb9fe30.jpg" alt="Wallpaper 1">
+        <p>cars</p>
+    </div>
+    <!-- Image Box 2 -->
+    <div class="wallpaper-item" data-title="abstract" onclick="window.location.href='land.html'">
+        <img src="https://i.pinimg.com/736x/ad/f4/17/adf41718b104c2f770085a95e6c024d4.jpg" alt="Wallpaper 2">
+        <p>land</p>
+    </div>
+    <!-- Image Box 3 -->
+    <div class="wallpaper-item" data-title="mountain" onclick="window.location.href='city.html'">
+        <img src="https://i.pinimg.com/736x/2e/cf/9b/2ecf9b1daf678fe83abdd4ef910614b7.jpg" alt="Wallpaper 3">
+        <p>city</p>
+    </div>
+    <!-- Image Box 4 -->
+    <div class="wallpaper-item" data-title="cityscape" onclick="window.location.href='pele.html'">
+        <img src="https://i.pinimg.com/736x/7e/a1/86/7ea1865448ab93867c479a01cf4fe56b.jpg" alt="Wallpaper 4">
+        <p>people</p>
+    </div>
+    <!-- Image Box 5 -->
+    <div class="wallpaper-item" data-title="sunset" onclick="window.location.href='sun.html'">
+        <img src="https://i.pinimg.com/736x/bf/55/af/bf55aff9802ba97f7cac70d499d89c4e.jpg" alt="Wallpaper 5">
+        <p>Sunset</p>
+    </div>
+    <!-- Image Box 6 -->
+    <div class="wallpaper-item" data-title="forest" onclick="window.location.href='path.html'">
+        <img src="https://i.pinimg.com/736x/8a/8d/d6/8a8dd6ef03bb47448856e38815e6e9a1.jpg" alt="Wallpaper 6">
+        <p>Forest Path</p>
+    </div>
+</div>
 
-    <!-- JavaScript -->
-    <script>
-        const toggleButton = document.getElementById('darkModeToggle');
-        const darkMode = localStorage.getItem('darkMode'); // Check for saved mode
+<footer>
+    <p>AlainB</p>
+</footer>
 
-        if (darkMode) {
-            document.body.classList.add(darkMode); // Set initial mode
-        }
+<script>
+    function filterImages() {
+        var input = document.getElementById("searchInput").value.toLowerCase();
+        var items = document.querySelectorAll(".wallpaper-item");
 
-        toggleButton.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode');
-        });
-
-        // Sample Image URLs (Replace these with your images or dynamic loading)
-        const imageUrls = [
-            "image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg", "image5.jpg", "image6.jpg"
-        ];
-
-        const imageGrid = document.getElementById('imageGrid');
-        const imageModal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        const downloadLink = document.getElementById('downloadLink');
-        const closeModalButton = document.querySelector('.close');
-
-        // Populate Image Grid
-        imageUrls.forEach(url => {
-            const imageBox = document.createElement('div');
-            imageBox.classList.add('image-box');
-            const img = document.createElement('img');
-            img.src = url;
-            img.alt = "Wallpaper Image";
-            imageBox.appendChild(img);
-            imageGrid.appendChild(imageBox);
-
-            // Click Event to Open Modal
-            imageBox.addEventListener('click', () => {
-                modalImage.src = url;
-                downloadLink.href = url;
-                imageModal.style.display = 'flex';
-            });
-        });
-
-        // Close Modal
-        closeModalButton.addEventListener('click', () => {
-            imageModal.style.display = 'none';
-        });
-
-        window.onclick = (event) => {
-            if (event.target == imageModal) {
-                imageModal.style.display = 'none';
+        items.forEach(function(item) {
+            var title = item.getAttribute("data-title").toLowerCase();
+            if (title.includes(input)) {
+                item.classList.add("visible");
+            } else {
+                item.classList.remove("visible");
             }
-        };
-    </script>
+        });
+    }
+
+    // Initially display all items
+    window.onload = function() {
+        var items = document.querySelectorAll(".wallpaper-item");
+        items.forEach(function(item) {
+            item.classList.add("visible");
+        });
+    };
+</script>
+
 </body>
 </html>
